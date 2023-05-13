@@ -85,4 +85,27 @@ describe("BankAccount", function (): void {
         ])
     ).to.be.reverted;
   });
+
+  it("should not allow user to create more than 4 account", async function (): Promise<void> {
+    const { bankAccount, addr1, addr2, addr3 } = await loadFixture(deploy);
+
+    await bankAccount
+      .connect(addr1)
+      .createAccount([addr1.address, addr2.address, addr3.address]);
+    await bankAccount
+      .connect(addr1)
+      .createAccount([addr1.address, addr2.address, addr3.address]);
+    await bankAccount
+      .connect(addr1)
+      .createAccount([addr1.address, addr2.address, addr3.address]);
+    await bankAccount
+      .connect(addr1)
+      .createAccount([addr1.address, addr2.address, addr3.address]);
+
+    await expect(
+      bankAccount
+        .connect(addr1)
+        .createAccount([addr1.address, addr2.address, addr3.address])
+    ).to.be.reverted;
+  });
 });
