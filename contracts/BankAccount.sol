@@ -41,7 +41,7 @@ contract BankAccount {
         //checking the owners address has duplicated
         for (uint i = 0; i < owners.length; i++) {
             for (uint j = i + 1; j < owners.length; j++) {
-                if(owners[i] == owners[j]) {
+                if(owners[i] == owners[j]) {  
                     revert("you can't have duplicated owners");
                 } 
             }
@@ -131,6 +131,20 @@ modifier toCheckBankBalance(uint accountId, uint amount) {
 
 
     //approve withdraw function
+    function approveWithdraw(uint withdrawAccountId, uint withdrawId) external validateAccountOwner(withdrawAccountId) {
+        Withdraw storage request = accounts[withdrawAccountId].withdrawRequests[withdrawId];
+
+
+        request.approvals[msg.sender] = true;
+        request.approvalCount++;
+
+        if(request.approvalCount == accounts[withdrawAccountId].owner.length  -1 ) {
+            request.approved = true;
+        }
+
+       
+    }
+
     //withdraw function
 
     //getBalance function
