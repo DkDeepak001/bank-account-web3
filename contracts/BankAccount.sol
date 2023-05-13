@@ -6,7 +6,7 @@ contract BankAccount {
 
     event createAccountEvent(address[] owners, uint indexed id, uint timestamp);
     event requestWithdrawEvent(address indexed owner, uint indexed accountId, uint indexed withdrawId, uint amount, uint timestamp);
-
+    event withdrawAmountEvent(uint indexed withdrawId,uint timestamp);
     //variables
 
     struct Withdraw {
@@ -164,6 +164,8 @@ contract BankAccount {
         accounts[accountId].balance -= ammount;
         (bool sent,) = payable(msg.sender).call{value: ammount}("");
         require(sent, "Failed to Withraw Ether");
+
+        emit withdrawAmountEvent(withdrawId, block.timestamp);
 
     }
 
