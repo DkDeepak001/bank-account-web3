@@ -4,6 +4,8 @@ pragma solidity ^0.8.9;
 contract BankAccount {
     //events 
 
+    event createAccountEvent(address[] owners, uint indexed id, uint timestamp);
+
 
     //variables
 
@@ -81,6 +83,9 @@ contract BankAccount {
 
         //increasing the nextAccountId
         nextAccountId++;
+
+        //emiting the event
+        emit createAccountEvent(owners, id, block.timestamp);
     }
 
     //deposit function
