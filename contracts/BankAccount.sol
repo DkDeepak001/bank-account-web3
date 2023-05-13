@@ -50,7 +50,7 @@ contract BankAccount {
     }
 
     
- modifier validateAccountOwner(uint accountId) {
+    modifier validateAccountOwner(uint accountId) {
         bool isOwner = false;
         for (uint i = 0; i < accounts[accountId].owner.length; i++) {
             if(accounts[accountId].owner[i] == msg.sender) {
@@ -62,8 +62,17 @@ contract BankAccount {
         _;
     }
 
-modifier toCheckBankBalance(uint accountId, uint amount) {
+    modifier toCheckBankBalance(uint accountId, uint amount) {
         require(accounts[accountId].balance >= amount, "the bank doesn't have enough balance");
+        _;
+    }
+
+    modifier canApprove(uint accountsId, uint withdrawId) {
+        require(!accounts[accountsId].withdrawRequests[withdrawId].approvals[msg.sender], "you have already approved this withdraw");
+        require(!accounts[accountsId].withdrawRequests[withdrawId].approved, "this withdraw has already been approved");
+        require(accounts[accountsId].balance >= accounts[accountsId].withdrawRequests[withdrawId].amount, "the bank doesn't have enough balance");
+        require(accounts[accountsId].withdrawRequests[withdrawId].owner != msg.sender, "you can't approve your own withdraw");  
+        require(accounts[accountsId].withdrawRequests[withdrawId].owner != address(0), "this withdraw doesn't exist");
         _;
     }
 
@@ -131,7 +140,7 @@ modifier toCheckBankBalance(uint accountId, uint amount) {
 
 
     //approve withdraw function
-    function approveWithdraw(uint withdrawAccountId, uint withdrawId) external validateAccountOwner(withdrawAccountId) {
+    function approveWithdraw(uint withdrawAccountId, uint withdrawId) external validateAccountOwner(withdrawAccountId) canApprove(withdrawAccountId, withdrawId){
         Withdraw storage request = accounts[withdrawAccountId].withdrawRequests[withdrawId];
 
 
