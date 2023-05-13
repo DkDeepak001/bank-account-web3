@@ -33,8 +33,31 @@ describe("BankAccount", function (): void {
       const { bankAccount, addr1 } = await loadFixture(deploy);
       await bankAccount.connect(addr1).createAccount([addr1.address]);
       const account = await bankAccount.connect(addr1).getUserAccounts();
-      console.log(account);
       expect(account.length).to.equal(1);
+    });
+
+    it("should create 2 user account without error", async function (): Promise<void> {
+      const { bankAccount, addr1, addr2 } = await loadFixture(deploy);
+      await bankAccount
+        .connect(addr1)
+        .createAccount([addr1.address, addr2.address]);
+      const account1 = await bankAccount.connect(addr1).getUserAccounts();
+      const account2 = await bankAccount.connect(addr2).getUserAccounts();
+      expect(account1.length).to.equal(1);
+      expect(account2.length).to.equal(1);
+    });
+
+    it("should create 3 user account without error", async function (): Promise<void> {
+      const { bankAccount, addr1, addr2, addr3 } = await loadFixture(deploy);
+      await bankAccount
+        .connect(addr1)
+        .createAccount([addr1.address, addr2.address, addr3.address]);
+      const account1 = await bankAccount.connect(addr1).getUserAccounts();
+      const account2 = await bankAccount.connect(addr2).getUserAccounts();
+      const account3 = await bankAccount.connect(addr3).getUserAccounts();
+      expect(account1.length).to.equal(1);
+      expect(account2.length).to.equal(1);
+      expect(account3.length).to.equal(1);
     });
   });
 });
