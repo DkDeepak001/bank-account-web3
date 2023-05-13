@@ -5,7 +5,7 @@ contract BankAccount {
     //events 
 
     event createAccountEvent(address[] owners, uint indexed id, uint timestamp);
-
+    event requestWithdrawEvent(address indexed owner, uint indexed accountId, uint indexed withdrawId, uint amount, uint timestamp);
 
     //variables
 
@@ -124,6 +124,8 @@ modifier toCheckBankBalance(uint accountId, uint amount) {
         request.owner = msg.sender;
         request.amount = amount;
         nextWithdrawId++;
+
+        emit requestWithdrawEvent(msg.sender, withdrawAccountId, id, amount, block.timestamp);
     }
 
 
