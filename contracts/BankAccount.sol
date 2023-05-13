@@ -188,6 +188,15 @@ contract BankAccount {
     function getApproval(uint accountId, uint withdrawId) external view validateAccountOwner(accountId) returns(bool) {
         return accounts[accountId].withdrawRequests[withdrawId].approved;
     }
+
+    //get no of approval function
+    function getNoOfApproval(uint accountId, uint withdrawId) external view validateAccountOwner(accountId) returns(uint) {
+        return accounts[accountId].withdrawRequests[withdrawId].approvalCount;
+    }
+    
     //getAccounts function
+    function getUserAccounts (address user) external view returns(uint[] memory) {
+        return userAccounts[user];
+    }
 
 }
