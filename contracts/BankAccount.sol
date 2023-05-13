@@ -35,7 +35,6 @@ contract BankAccount {
     //modifiers===============================================
 
     modifier validateOwner(address[] memory owners) {
-        require(owners.length > 0, "you need to pass at least one owner");
         require(owners.length + 1  <= 4, "you can't have more than 4owners");
 
         //checking the owners address has duplicated
