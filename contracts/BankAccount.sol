@@ -49,6 +49,24 @@ contract BankAccount {
         _;
     }
 
+    
+ modifier validateAccountOwner(uint accountId) {
+        bool isOwner = false;
+        for (uint i = 0; i < accounts[accountId].owner.length; i++) {
+            if(accounts[accountId].owner[i] == msg.sender) {
+                isOwner = true;
+                break;
+            }
+        }
+        require(isOwner, "you are not the owner of this account");
+        _;
+    }
+
+
+
+
+    //functions===============================================
+
 
     
     //createAccount function
@@ -89,6 +107,11 @@ contract BankAccount {
     }
 
     //deposit function
+    function deposite( uint depositeAccountId)  external payable validateAccountOwner(depositeAccountId){
+        accounts[depositeAccountId].balance += msg.value;
+    }
+
+
     //request whitdraw function
     //approve withdraw function
     //withdraw function
