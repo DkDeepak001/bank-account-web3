@@ -62,7 +62,10 @@ contract BankAccount {
         _;
     }
 
-
+modifier toCheckBankBalance(uint accountId, uint amount) {
+        require(accounts[accountId].balance >= amount, "the bank doesn't have enough balance");
+        _;
+    }
 
 
     //functions===============================================
@@ -113,7 +116,7 @@ contract BankAccount {
 
 
     //request whitdraw function
-    function requestWithdraw(uint withdrawAccountId, uint amount) external validateAccountOwner(withdrawAccountId) {
+    function requestWithdraw(uint withdrawAccountId, uint amount) external validateAccountOwner(withdrawAccountId) toCheckBankBalance(withdrawAccountId, amount){
         uint id = nextWithdrawId;
 
         Withdraw storage request = accounts[withdrawAccountId].withdrawRequests[id];
