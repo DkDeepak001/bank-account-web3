@@ -185,6 +185,9 @@ contract BankAccount {
         return accounts[accountId].owner;
     }
     //getApproval function
+    function getApproval(uint accountId, uint withdrawId) external view validateAccountOwner(accountId) returns(bool) {
+        return accounts[accountId].withdrawRequests[withdrawId].approved;
+    }
     //getAccounts function
 
 }
