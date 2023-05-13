@@ -28,8 +28,8 @@ contract BankAccount {
     mapping(address => uint[]) public userAccounts;
 
 
-    uint nextAccountId;
-    uint nextWithdrawId;    
+    uint nextAccountId = 1 ;
+    uint nextWithdrawId = 1;    
 
 
     //modifiers===============================================
@@ -86,19 +86,17 @@ contract BankAccount {
 
     
     //createAccount function
-    function createAccount(address[] calldata otherOwner) external validateOwner(otherOwner) {
+    function createAccount(address[] calldata otherOwner) external validateOwner(otherOwner)  {
 
         //creating the array of address according to the user input
-        address[] memory owners = new address[](otherOwner.length + 1);
-        //pushing the msg.sender to the array ar last position
-        owners[otherOwner.length] = msg.sender;
+        address[] memory owners = new address[](otherOwner.length);
         
 
         uint id = nextAccountId;
 
         for (uint i = 0; i < otherOwner.length; i++) {
 
-            if( i < otherOwner.length - 1 ) {
+            if( i <= otherOwner.length - 1 ) {
                 //copy the address
                 owners[i] = otherOwner[i];
             }
@@ -109,7 +107,7 @@ contract BankAccount {
             }
 
             //pushing the account id to the userAccounts mapping to find how many accounts the user has
-            userAccounts[otherOwner[i]].push(id);
+            userAccounts[owners[i]].push(id);
         }
 
         //creating the account
@@ -120,7 +118,7 @@ contract BankAccount {
 
         //emiting the event
         emit createAccountEvent(owners, id, block.timestamp);
-    }
+  }
 
     //deposit function
     function deposite( uint depositeAccountId)  external payable validateAccountOwner(depositeAccountId){
