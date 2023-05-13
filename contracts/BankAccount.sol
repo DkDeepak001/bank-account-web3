@@ -162,6 +162,8 @@ contract BankAccount {
         require(accounts[accountId].balance >= ammount, "the bank doesn't have enough balance");
         
         accounts[accountId].balance -= ammount;
+        delete accounts[accountId].withdrawRequests[withdrawId];
+         
         (bool sent,) = payable(msg.sender).call{value: ammount}("");
         require(sent, "Failed to Withraw Ether");
 
