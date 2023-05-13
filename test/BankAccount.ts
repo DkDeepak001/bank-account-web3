@@ -60,4 +60,12 @@ describe("BankAccount", function (): void {
       expect(account3.length).to.equal(1);
     });
   });
+
+  it("should not allow user with duplicate account", async function (): Promise<void> {
+    const { bankAccount, addr1, addr2 } = await loadFixture(deploy);
+
+    await expect(
+      bankAccount.connect(addr1).createAccount([addr1.address, addr1.address])
+    ).to.be.revertedWith("you can't have duplicated owners");
+  });
 });
