@@ -30,9 +30,27 @@ contract BankAccount {
     uint nextWithdrawId;    
 
 
+    //modifiers===============================================
+
+    modifier validateOwner(address[] memory owners) {
+        require(owners.length > 0, "you need to pass at least one owner");
+        require(owners.length + 1  <= 4, "you can't have more than 4owners");
+
+        //checking the owners address has duplicated
+        for (uint i = 0; i < owners.length; i++) {
+            for (uint j = i + 1; j < owners.length; j++) {
+                if(owners[i] == owners[j]) {
+                    revert("you can't have duplicated owners");
+                }
+            }
+        }
+        _;
+    }
+
+
     
     //createAccount function
-    function createAccount(address[] calldata otherOwner) external {
+    function createAccount(address[] calldata otherOwner) external validateOwner(otherOwner) {
 
         //creating the array of address according to the user input
         address[] memory owners = new address[](otherOwner.length + 1);
