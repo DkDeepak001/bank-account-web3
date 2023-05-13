@@ -76,6 +76,11 @@ contract BankAccount {
         _;
     }
 
+    modifier canWithdraw(uint accountsId, uint withdrawId) {
+        require(accounts[accountsId].withdrawRequests[withdrawId].approved, "this withdraw has not been approved yet");
+        require(accounts[accountsId].withdrawRequests[withdrawId].owner == msg.sender, "you are not the owner of this withdraw"); 
+        _;
+    }
 
     //functions===============================================
 
@@ -156,7 +161,7 @@ contract BankAccount {
 
     //withdraw function
 
-    function withdrawAmount(uint withdrawId,uint accountId ) external {
+    function withdrawAmount(uint withdrawId,uint accountId ) external canWithdraw(accountId, withdrawId){
         uint ammount = accounts[accountId].withdrawRequests[withdrawId].amount;
 
         require(accounts[accountId].balance >= ammount, "the bank doesn't have enough balance");
