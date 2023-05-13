@@ -181,6 +181,9 @@ contract BankAccount {
         return accounts[accountId].balance;
     }
     //getOwner function
+    function getOwner(uint accountId) external view validateAccountOwner(accountId) returns(address[] memory) {
+        return accounts[accountId].owner;
+    }
     //getApproval function
     //getAccounts function
 
