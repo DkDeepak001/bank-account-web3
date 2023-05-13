@@ -20,7 +20,7 @@ contract BankAccount {
     struct Account {
         address[] owner;
         uint balance;
-        mapping(uint => Withdraw) withdraws;
+        mapping(uint => Withdraw) withdrawRequests;
     }
 
 
@@ -43,7 +43,7 @@ contract BankAccount {
             for (uint j = i + 1; j < owners.length; j++) {
                 if(owners[i] == owners[j]) {
                     revert("you can't have duplicated owners");
-                }
+                } 
             }
         }
         _;
@@ -113,6 +113,18 @@ contract BankAccount {
 
 
     //request whitdraw function
+    function requestWithdraw(uint withdrawAccountId, uint amount) external validateAccountOwner(withdrawAccountId) {
+        uint id = nextWithdrawId;
+
+        Withdraw storage request = accounts[withdrawAccountId].withdrawRequests[id];
+
+        request.owner = msg.sender;
+        request.amount = amount;
+        nextWithdrawId++;
+    }
+
+
+
     //approve withdraw function
     //withdraw function
 
