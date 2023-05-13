@@ -156,6 +156,17 @@ contract BankAccount {
 
     //withdraw function
 
+    function withdrawAmount(uint withdrawId,uint accountId ) external {
+        uint ammount = accounts[accountId].withdrawRequests[withdrawId].amount;
+
+        require(accounts[accountId].balance >= ammount, "the bank doesn't have enough balance");
+        
+        accounts[accountId].balance -= ammount;
+        (bool sent,) = payable(msg.sender).call{value: ammount}("");
+        require(sent, "Failed to Withraw Ether");
+
+    }
+
     //getBalance function
     //getOwner function
     //getApproval function
