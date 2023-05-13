@@ -195,8 +195,8 @@ contract BankAccount {
     }
     
     //getAccounts function
-    function getUserAccounts (address user) external view returns(uint[] memory) {
-        return userAccounts[user];
+    function getUserAccounts () external view returns(uint[] memory) {
+        return userAccounts[msg.sender];
     }
 
 }
