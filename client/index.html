@@ -40,6 +40,34 @@
           <div id="messages" class="flex flex-col"></div>
         </div>
       </div>
+      <div class="w-1/2 flex items-center justify-between my-5">
+        <div class="w-3/4">
+          <div class="flex w-full flex-row items-center">
+            <h2 class="text-xl font-bold mb-2 text-black">
+              Deposite Amount in (ETH)
+            </h2>
+          </div>
+          <input
+            id="getAccountIdToDeposite"
+            type="text"
+            class="w-[80%] px-4 py-2 border border-gray-300 rounded-md my-1"
+            placeholder="Enter Account ID"
+          />
+          <input
+            id="getAmountToDepsite"
+            type="text"
+            class="w-[80%] px-4 py-2 border border-gray-300 rounded-md my-1"
+            placeholder="Enter Amount to Deposite (ETH)"
+          />
+        </div>
+        <button
+          id="raiseWithdrawRequest"
+          onclick="handleDeposite()"
+          class="w-1/4 px-4 py-2 text-white bg-blue-500 rounded-md"
+        >
+          Get My Account
+        </button>
+      </div>
 
       <div class="w-1/2 flex items-center justify-between my-5">
         <div>
