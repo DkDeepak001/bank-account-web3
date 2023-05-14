@@ -11,7 +11,35 @@
     />
   </head>
   <body>
-    <h2 class="text-3xl font-bold text-center text-red-500">Ethers.js</h2>
+    <h2 class="text-3xl font-bold text-center text-red-500">Bank Account</h2>
+
+    <div class="flex justify-center my-5 flex-col items-center">
+      <div class="w-1/2">
+        <h2 class="text-xl font-bold mb-2 text-black">Create Account</h2>
+        <div class="flex justify-between">
+          <div class="w-3/4">
+            <input
+              id="input"
+              type="text"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md"
+              placeholder="Enter address"
+            />
+          </div>
+          <div class="w-1/4">
+            <button
+              id="send"
+              class="w-full px-4 py-2 text-white bg-blue-500 rounded-md"
+            >
+              Create Account
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <div id="messages" class="flex flex-col"></div>
+        </div>
+      </div>
+
   </body>
   <script
     src="http://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
