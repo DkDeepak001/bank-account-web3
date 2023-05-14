@@ -18,7 +18,7 @@ const ABI = [
   "function withdrawAmount(uint256 withdrawId, uint256 accountId)",
 ];
 
-const address = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+const address = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"; //conteract address
 
 let contract = null;
 
@@ -28,4 +28,13 @@ async function getAccess() {
   await provider.send("eth_requestAccounts", []);
   const signer = provider.getSigner();
   contract = new ethers.Contract(address, ABI, signer);
+}
+
+async function createAccount() {
+  await getAccess();
+  const otherOwner = [document.getElementById("otherOwner").value];
+  console.log(otherOwner);
+  const tx = await contract.createAccount(otherOwner);
+  await tx.wait();
+  console.log("Account created");
 }
