@@ -149,10 +149,7 @@ describe("BankAccount", function (): void {
 
   describe("Despositing", async (): Promise<void> => {
     it("should allow deposit from account owner", async (): Promise<void> => {
-      const { bankAccount, addr0, addr1 } = await deployBankAccountWithAccounts(
-        1,
-        2
-      );
+      const { bankAccount, addr0 } = await deployBankAccountWithAccounts(1);
 
       await expect(
         bankAccount.connect(addr0).deposite(1, { value: "100" })
@@ -163,6 +160,45 @@ describe("BankAccount", function (): void {
       const { bankAccount, addr1 } = await deployBankAccountWithAccounts(1);
       await expect(bankAccount.connect(addr1).deposite(0, { value: "100" })).to
         .be.reverted;
+    });
+  });
+
+  describe("Withdraw", () => {
+    describe("Request a withdraw", () => {
+      it("account owner can request withdraw", async () => {
+        const { bankAccount, addr0 } = await deployBankAccountWithAccounts(
+          1,
+          100
+        );
+        await bankAccount.connect(addr0).requestWithdraw(1, 100);
+      });
+
+      it("account owner can not request withdraw with invalid amount", async () => {
+        const { bankAccount, addr0 } = await deployBankAccountWithAccounts(
+          1,
+          100
+        );
+        await expect(bankAccount.connect(addr0).requestWithdraw(1, 101)).to.be
+          .reverted;
+      });
+
+      it("non-account owner cannot request withdraw", async () => {
+        const { bankAccount, addr1 } = await deployBankAccountWithAccounts(
+          1,
+          100
+        );
+        await expect(bankAccount.connect(addr1).requestWithdraw(1, 90)).to.be
+          .reverted;
+      });
+
+      it("non-account owner cannot request withdraw", async () => {
+        const { bankAccount, addr0 } = await deployBankAccountWithAccounts(
+          1,
+          100
+        );
+        await bankAccount.connect(addr0).requestWithdraw(1, 90);
+        await bankAccount.connect(addr0).requestWithdraw(1, 10);
+      });
     });
   });
 });
