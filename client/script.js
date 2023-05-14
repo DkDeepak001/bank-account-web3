@@ -38,3 +38,11 @@ async function createAccount() {
   await tx.wait();
   console.log("Account created");
 }
+
+async function showAccounts() {
+  await getAccess();
+  const accounts = await contract.getUserAccounts();
+  console.log(accounts);
+  document.getElementById("showAccounts").innerHTML =
+    accounts.length === 0 ? "No accounts" : accounts;
+}
