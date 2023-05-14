@@ -117,3 +117,16 @@ async function getIsApprovedWithdrawRequests() {
     "showIsApprovedWithdrawRequests"
   ).innerHTML = `: ${isApprovedWithdrawRequests}`;
 }
+
+async function handleWithdrawAmount() {
+  await getAccess();
+  const withdrawId = document.getElementById(
+    "getAccountIdForWithdrawAmount"
+  ).value;
+  const accountId = document.getElementById(
+    "getWithdrawIdForWithdrawAmount"
+  ).value;
+  const tx = await contract.withdrawAmount(withdrawId, accountId);
+  await tx.wait();
+  console.log("Withdraw amount");
+}
