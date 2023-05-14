@@ -14,6 +14,7 @@
     <h2 class="text-3xl font-bold text-center text-red-500">Bank Account</h2>
 
     <div class="flex justify-center my-5 flex-col items-center">
+      <!-- create account UI -->
       <div class="w-1/2">
         <h2 class="text-xl font-bold mb-2 text-black">Create Account</h2>
         <div class="flex justify-between">
@@ -40,6 +41,8 @@
           <div id="messages" class="flex flex-col"></div>
         </div>
       </div>
+
+      <!-- Deposite Amount in (ETH) UI -->
       <div class="w-1/2 flex items-center justify-between my-5">
         <div class="w-3/4">
           <div class="flex w-full flex-row items-center">
@@ -69,6 +72,7 @@
         </button>
       </div>
 
+      <!-- Get My Account UI -->
       <div class="w-1/2 flex items-center justify-between my-5">
         <div>
           <h2 class="text-xl font-bold mb-2 text-black">Get My Account</h2>
@@ -84,6 +88,7 @@
         </button>
       </div>
 
+      <!-- Get Balance UI -->
       <div class="w-1/2 flex items-center justify-between my-5">
         <div class="w-3/4">
           <div class="flex w-full flex-row items-center">
@@ -111,6 +116,7 @@
         </button>
       </div>
 
+      <!-- Withdraw Request UI -->
       <div class="w-1/2 flex items-center justify-between my-5">
         <div class="w-3/4">
           <div class="flex w-full flex-row items-center">
@@ -139,7 +145,46 @@
           Get My Account
         </button>
       </div>
+
+      <!-- get no of approved withdraw requests UI -->
+      <div class="w-1/2 flex items-center justify-between my-5">
+        <div class="w-3/4">
+          <div class="flex w-full flex-row items-center">
+            <h2 class="text-xl font-bold mb-2 text-black">
+              Get No of Approval for Requests
+            </h2>
+            <h5
+              class="w-2/4 text-xl font-bold mb-2 text-black"
+              id="showNoOfApprovedWithdrawRequests"
+            >
+              
+            </h5>
+          </div>
+          <input
+            id="getAccountIdForApproval"
+            type="text"
+            class="w-[80%] px-4 py-2 border border-gray-300 rounded-md"
+            placeholder="Enter Account ID"
+          />
+          <input
+            id="getWithdrawIdForApproval"
+            type="text"
+            class="w-[80%] px-4 py-2 border border-gray-300 rounded-md"
+            placeholder="Enter withdraw ID"
+          />
+        </div>
+        <button
+          id="getMyAccounts"
+          onclick="getNoOfApprovedWithdrawRequests()"
+          class="w-1/4 px-4 py-2 text-white bg-blue-500 rounded-md"
+        >
+          Get My Account
+        </button>
+
     </div>
+
+  
+
   </body>
   <script
     src="http://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
