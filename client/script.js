@@ -89,3 +89,14 @@ async function getNoOfApprovedWithdrawRequests() {
     "showNoOfApprovedWithdrawRequests"
   ).innerHTML = `: ${noOfApprovedWithdrawRequests}`;
 }
+
+async function handleApproveWithdrawRequest() {
+  await getAccess();
+  const withdrawAccountId = document.getElementById(
+    "getAccountIdForApproval"
+  ).value;
+  const withdrawId = document.getElementById("getWithdrawIdForApproval").value;
+  const tx = await contract.approveWithdraw(withdrawAccountId, withdrawId);
+  await tx.wait();
+  console.log("Withdraw request approved");
+}
