@@ -211,6 +211,46 @@
       >
         Get My Account
       </button>
+    </div>
+
+    <!-- Get  is Approved Withdraw Requests UI -->
+    <div class="w-1/2 flex items-center justify-between my-5">
+      <div class="w-3/4">
+        <div class="flex w-full flex-row items-center">
+          <h2 class="text-xl font-bold mb-2 text-black">
+            Get Is Approved Withdraw Requests
+          </h2>
+          <h5
+            class="w-2/4 text-xl font-bold mb-2 text-black"
+            id="showIsApprovedWithdrawRequests"
+          >
+            
+          </h5>
+        </div>
+        <input
+          id="getIsApprovedWithdrawRequests"
+          type="text"
+          class="w-[80%] px-4 py-2 border border-gray-300 rounded-md"
+          placeholder="Enter Account ID"
+        />
+        <input
+          id="getIsWithdrawIdForApproval"
+          type="text"
+          class="w-[80%] px-4 py-2 border border-gray-300 rounded-md"
+          placeholder="Enter withdraw ID"
+        />
+      </div>
+      <button
+        id="getMyAccounts"
+        onclick="getIsApprovedWithdrawRequests()"
+        class="w-1/4 px-4 py-2 text-white bg-blue-500 rounded-md"
+      >
+        Get My Account
+      </button>
+    </div>
+
+
+
 
   </body>
   <script
