@@ -32,8 +32,7 @@ async function getAccess() {
 
 async function createAccount() {
   await getAccess();
-  const otherOwner = [document.getElementById("otherOwner").value];
-  console.log(otherOwner);
+  const otherOwner = document.getElementById("createAccount").value.split(",");
   const tx = await contract.createAccount(otherOwner);
   await tx.wait();
   console.log("Account created");
