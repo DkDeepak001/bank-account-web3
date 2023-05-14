@@ -75,3 +75,17 @@ async function handleDeposite() {
   await tx.wait();
   console.log("Deposite request sent");
 }
+
+async function getNoOfApprovedWithdrawRequests() {
+  await getAccess();
+  const accountId = document.getElementById("getAccountIdForApproval").value;
+  const withdrawId = document.getElementById("getWithdrawIdForApproval").value;
+  const noOfApprovedWithdrawRequests = await contract.getNoOfApproval(
+    accountId,
+    withdrawId
+  );
+  console.log(noOfApprovedWithdrawRequests);
+  document.getElementById(
+    "showNoOfApprovedWithdrawRequests"
+  ).innerHTML = `: ${noOfApprovedWithdrawRequests}`;
+}
