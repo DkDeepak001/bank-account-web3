@@ -62,3 +62,16 @@ async function handleWithdrawRequest() {
   await tx.wait();
   console.log("Withdraw request sent");
 }
+
+async function handleDeposite() {
+  await getAccess();
+  const depositeAccountId = document.getElementById(
+    "getAccountIdToDeposite"
+  ).value;
+  const amount = document.getElementById("getAmountToDepsite").value;
+  const tx = await contract.deposite(depositeAccountId, {
+    value: amount,
+  });
+  await tx.wait();
+  console.log("Deposite request sent");
+}
