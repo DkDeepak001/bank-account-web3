@@ -45,3 +45,11 @@ async function showAccounts() {
   document.getElementById("showAccounts").innerHTML =
     accounts.length === 0 ? "No accounts" : accounts;
 }
+
+async function getBalance() {
+  await getAccess();
+  const accountId = document.getElementById("getBalance").value;
+  const balance = await contract.getBalance(accountId);
+  console.log(balance);
+  document.getElementById("showBalance").innerHTML = `: ${balance}`;
+}
