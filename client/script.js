@@ -100,3 +100,20 @@ async function handleApproveWithdrawRequest() {
   await tx.wait();
   console.log("Withdraw request approved");
 }
+
+async function getIsApprovedWithdrawRequests() {
+  await getAccess();
+  const accountId = document.getElementById(
+    "getIsApprovedWithdrawRequests"
+  ).value;
+  const withdrawId = document.getElementById(
+    "getIsWithdrawIdForApproval"
+  ).value;
+  const isApprovedWithdrawRequests = await contract.getApproval(
+    accountId,
+    withdrawId
+  );
+  document.getElementById(
+    "showIsApprovedWithdrawRequests"
+  ).innerHTML = `: ${isApprovedWithdrawRequests}`;
+}
