@@ -53,3 +53,12 @@ async function getBalance() {
   console.log(balance);
   document.getElementById("showBalance").innerHTML = `: ${balance}`;
 }
+
+async function handleWithdrawRequest() {
+  await getAccess();
+  const withdrawAccountId = document.getElementById("getAccountId").value;
+  const amount = document.getElementById("getAmount").value;
+  const tx = await contract.requestWithdraw(withdrawAccountId, amount);
+  await tx.wait();
+  console.log("Withdraw request sent");
+}
